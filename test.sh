@@ -27,9 +27,9 @@ make_request() {
     fi
     
     if [ "$method" = "GET" ]; then
-        curl -s -X $method "$endpoint" | jq .
+        curl -s -X $method "$endpoint" 
     else
-        curl -s -X $method "$endpoint" -H "Content-Type: application/json" -d "$data" | jq .
+        curl -s -X $method "$endpoint" -H "Content-Type: application/json" -d "$data" 
     fi
     echo ""
 }
