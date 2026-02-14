@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { validate } from '../middleware/validation.middleware';
-import { createUserSchema, updateUserSchema } from '../validations/user.validation';
+import { createUserSchema, followUserSchema, updateUserSchema } from '../validations/user.validation';
 import { UserController } from '../controllers/user.controller';
+
 
 export const userRouter = Router();
 const userController = new UserController();
@@ -20,3 +21,14 @@ userRouter.put('/:id', validate(updateUserSchema), userController.updateUser.bin
 
 // Delete user
 userRouter.delete('/:id', userController.deleteUser.bind(userController));
+
+// get user followers
+userRouter.get('/:id/followers', userController.getFollowers.bind(userController));
+
+// View user activity history
+userRouter.get('/:id/activity', userController.getActivity.bind(userController));
+
+// Follow a user (Assuming you use the controller method we wrote earlier)
+userRouter.post('/:id/follow', validate(followUserSchema),userController.followUser.bind(userController));
+
+export default userRouter;

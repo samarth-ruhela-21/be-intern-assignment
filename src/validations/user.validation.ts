@@ -1,6 +1,12 @@
 import Joi from 'joi';
 
 export const createUserSchema = Joi.object({
+  username: Joi.string().required().alphanum().min(3).max(30).messages({
+    'string.empty': 'Username is required',
+    'string.alphanum': 'Username must only contain alpha-numeric characters',
+    'string.min': 'Username must be at least 3 characters long',
+    'string.max': 'Username cannot exceed 30 characters',
+  }),
   firstName: Joi.string().required().min(2).max(255).messages({
     'string.empty': 'First name is required',
     'string.min': 'First name must be at least 2 characters long',
@@ -36,3 +42,10 @@ export const updateUserSchema = Joi.object({
   .messages({
     'object.min': 'At least one field must be provided for update',
   });
+
+  export const followUserSchema = Joi.object({
+  followerId: Joi.number().required().integer().positive().messages({
+    'number.base': 'Follower ID must be a number',
+    'any.required': 'Follower ID is required to perform this action',
+  }),
+});
